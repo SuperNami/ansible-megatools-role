@@ -1,0 +1,7 @@
+---
+- name: add debian unstable deb repository
+  apt_repository: repo='deb http://http.debian.net/debian unstable main non-free contrib' state=present
+
+
+- name: add debian unstable deb src repository
+  apt_repository: repo='deb-src http://http.debian.net/debian unstable main non-free contrib' state=present

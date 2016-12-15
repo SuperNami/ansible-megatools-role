@@ -1,0 +1,9 @@
+---
+- include: debian.yml
+  tags: debian
+
+- include: install.yml
+  tags: install
+
+- include: compile.yml
+  tags: compile

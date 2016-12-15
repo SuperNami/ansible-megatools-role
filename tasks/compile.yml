@@ -1,0 +1,42 @@
+---
+- name: install dependencies
+  apt: pkg={{ item }}
+       update_cache=yes
+       state=latest
+
+  with_items:
+  - build-essential
+  - libglib2.0-dev
+  - libssl-dev
+  - libcurl4-openssl-dev
+  - libgirepository1.0-dev
+  - autoconf
+
+
+- name: download megatools source
+  get_url: url=https://github.com/megous/megatools/archive/1.9.97.tar.gz
+           dest=/opt/1.9.97.tar.gz
+
+
+- name: unpack megatools archive
+  command: tar -xvzf 1.9.97.tar.gz chdir=/opt creates=/opt/megatools-1.9.97
+
+
+- name: remove megatools archive
+  file: path=/opt/1.9.97.tar.gz
+        state=absent
+
+
+- name: configure
+  command: ./configure chdir=/opt/megatools-1.9.97 creates=
+
+
+- name: run make
+  command: make chdir=/opt/megatools-1.9.97 creates=
+
+
+- name: run make install
+  command: make install chdir=/opt/megatools-1.9.97 creates=
+
+# Note: when you run into missing .so files, try building with
+# `./configure --disable-shared --enable-static` instead of plain `./configure`.
