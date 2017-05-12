@@ -3,6 +3,9 @@ megatools: install
 debian:
 	ansible-playbook main.yml -i localhost -t debian
 
+debian:
+	ansible-playbook main.yml -i localhost -t ubuntu
+
 install:
 	ansible-playbook main.yml -i localhost -t install
 

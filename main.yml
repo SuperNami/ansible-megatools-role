@@ -4,5 +4,5 @@
   become: true
   tasks:
   - include: tasks/main.yml
-  handlers:
-  - include: handlers/main.yml
+  vars_files:
+  - vars/main.yml

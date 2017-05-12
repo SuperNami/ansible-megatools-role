@@ -1,0 +1,43 @@
+---
+- name: install dependencies
+  apt: pkg={{ item }}
+       update_cache=yes
+       state=present
+
+  with_items:
+  - libtool
+  - libglib2.0-dev
+  - gobject-introspection
+  - libgmp3-dev
+  - nettle-dev
+  - asciidoc
+  - glib-networking
+  - openssl
+  - libcurl4-openssl-dev
+  - libssl-dev
+
+
+- name: download megatools archive
+  get_url: url=http://megatools.megous.com/builds/megatools-{{ megatools_version }}.tar.gz
+           dest={{ home_folder }}/downloads/megatools-{{ megatools_version }}.tar.gz
+           force=no
+
+
+- name: unpack archive
+  command: zcat megatools-{{ megatools_version }}.tar.gz > megatools-{{ megatools_version }}.tar chdir={{ home_folder }}/downloads
+
+
+- name: untar archive
+  command: tar -xf megatools-{{ megatools_version }}.tar chdir={{ home_folder }}/downloads
+
+
+- name: configure
+  command: ./configure chdir={{ home_folder }}/downloads/megatools-{{ megatools_version }}/ creates=
+
+
+- name: make
+  command: make chdir={{ home_folder }}/downloads/megatools-{{ megatools_version }}/ creates=
+
+
+- name: make install
+  command: make install chdir={{ home_folder }}/downloads/megatools-{{ megatools_version }}/ creates=

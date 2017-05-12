@@ -2,6 +2,9 @@
 - include: debian.yml
   tags: debian
 
+- include: ubuntu.yml
+  tags: ubuntu
+
 - include: install.yml
   tags: install
 
